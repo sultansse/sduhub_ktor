@@ -1,6 +1,9 @@
 package com.softwareit
 
-import com.softwareit.plugins.*
+import com.softwareit.plugins.configureMonitoring
+import com.softwareit.plugins.configureRouting
+import com.softwareit.plugins.configureSecurity
+import com.softwareit.plugins.configureSerialization
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*

@@ -9,10 +9,13 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 
 fun main() {
-    val baseUrl = "https://sduhub-ktor.onrender.com"
     val port = System.getenv().getOrDefault("PORT", "8080").toInt()
 
-    embeddedServer(Netty, port, host = baseUrl, module = Application::module).start(wait = true)
+    embeddedServer(
+        factory = Netty,
+        port = port,
+        module = Application::module,
+    ).start(wait = true)
 }
 
 fun Application.module() {

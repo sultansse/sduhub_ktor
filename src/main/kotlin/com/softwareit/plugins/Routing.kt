@@ -19,7 +19,7 @@ fun Application.configureRouting() {
         randomStudent()
     }
     routing {
-        get("/students") {
+        get("/v1/students") {
             call.respond(
                 HttpStatusCode.OK,
                 students
@@ -36,7 +36,7 @@ fun Application.configureRouting() {
 //}
 
 fun Route.randomStudent() {
-    get("/student") {
+    get("/v1/student") {
         call.respond(
             HttpStatusCode.OK,
             students.random(),

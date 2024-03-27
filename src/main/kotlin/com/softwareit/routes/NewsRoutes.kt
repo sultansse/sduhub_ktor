@@ -8,19 +8,16 @@ import kotlinx.serialization.Serializable
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 
-
 fun Route.addNewsRoutes() {
-    get("/news") {
-
-        val targetUrl =
-            "https://tengrinews.kz/tag/университет/"
+    get("/v1/news") {
+        val targetUrl = "https://tengrinews.kz/tag/университет/"
         val document = scrapeWebsite(targetUrl)
         val items: List<NewsItem> = extractNews(document)
 
         call.respond(HttpStatusCode.OK, items)
     }
 
-    get("/news/{id}") {
+    get("/v1/news/{id}") {
         val id = call.parameters["id"]?.toIntOrNull()
 
         if (id != null) {
@@ -47,13 +44,17 @@ fun extractNews(document: Document): List<NewsItem> {
     val mainContentDiv = document.selectFirst("div.content_main")
     val itemElements = mainContentDiv?.getElementsByClass("content_main_item")
 
-    itemElements?.forEach { itemElement ->
+    itemElements?.forEachIndexed { index, itemElement ->
         val title = itemElement.getElementsByClass("content_main_item_title").firstOrNull()?.text() ?: ""
         val announce = itemElement.getElementsByClass("content_main_item_announce").firstOrNull()?.text() ?: ""
         val imageUrl = itemElement.getElementsByClass("content_main_item_img").firstOrNull()?.attr("src") ?: ""
         val date = itemElement.getElementsByClass("content_main_item_meta").firstOrNull()?.getElementsByTag("span")
             ?.firstOrNull()?.text()?.trim() ?: ""
-        newsItems.add(NewsItem(imageUrl, title, announce, date))
+        val id = index.toString() // Generating ID based on item index
+        val link =
+            itemElement.getElementsByClass("content_main_item_title").firstOrNull()?.getElementsByTag("a")?.attr("href")
+                ?: ""
+        newsItems.add(NewsItem(id, imageUrl, title, announce, date, link))
     }
 
     return newsItems
@@ -61,9 +62,10 @@ fun extractNews(document: Document): List<NewsItem> {
 
 @Serializable
 data class NewsItem(
+    val id: String,
     val imageUrl: String,
     val title: String,
     val announce: String,
     val date: String,
+    val link: String,
 )
-

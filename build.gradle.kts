@@ -23,22 +23,11 @@ repositories {
 }
 
 dependencies {
-
-    implementation("com.fleeksoft.ksoup:ksoup:0.1.2")
-
-// Optional: Include only if you need to use network request functions such as
-// Ksoup.parseGetRequest, Ksoup.parseSubmitRequest, and Ksoup.parsePostRequest
-    implementation("com.fleeksoft.ksoup:ksoup-network:0.1.2")
-
     implementation("org.jsoup:jsoup:1.17.2")
-
-
 
     implementation("io.ktor:ktor-client-encoding:$ktor_version")
     implementation("io.ktor:ktor-client-core:$ktor_version")
     implementation("io.ktor:ktor-client-json:$ktor_version")
-    implementation("com.fleeksoft.ksoup:ksoup:0.1.2")
-    implementation("com.fleeksoft.ksoup:ksoup-network:0.1.2")
     implementation("io.ktor:ktor-client-apache:1.3.2-1.4-M2")
     implementation("io.ktor:ktor-server-core-jvm")
     implementation("io.ktor:ktor-server-host-common-jvm")

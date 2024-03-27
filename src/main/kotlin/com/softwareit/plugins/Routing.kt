@@ -2,6 +2,7 @@ package com.softwareit.plugins
 
 import com.softwareit.routes.addAuthRoutes
 import com.softwareit.routes.addExampleRoutes
+import com.softwareit.routes.addNewsRoutes
 import io.ktor.server.application.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -17,5 +18,6 @@ fun Application.configureRouting() {
     routing {
         addExampleRoutes()
         addAuthRoutes()
+        addNewsRoutes()
     }
 }

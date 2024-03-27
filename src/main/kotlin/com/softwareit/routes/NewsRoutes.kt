@@ -47,7 +47,9 @@ fun extractNews(document: Document): List<NewsItem> {
     itemElements?.forEachIndexed { index, itemElement ->
         val title = itemElement.getElementsByClass("content_main_item_title").firstOrNull()?.text() ?: ""
         val announce = itemElement.getElementsByClass("content_main_item_announce").firstOrNull()?.text() ?: ""
-        val imageUrl = itemElement.getElementsByClass("content_main_item_img").firstOrNull()?.attr("src") ?: ""
+        val imageUrl = "https://tengrinews.kz/${
+            itemElement.getElementsByClass("content_main_item_img").firstOrNull()?.attr("src") ?: ""
+        }"
         val date = itemElement.getElementsByClass("content_main_item_meta").firstOrNull()?.getElementsByTag("span")
             ?.firstOrNull()?.text()?.trim() ?: ""
         val id = index.toString() // Generating ID based on item index

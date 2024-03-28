@@ -53,9 +53,15 @@ fun extractNews(document: Document): List<NewsItem> {
         val date = itemElement.getElementsByClass("content_main_item_meta").firstOrNull()?.getElementsByTag("span")
             ?.firstOrNull()?.text()?.trim() ?: ""
         val id = index.toString() // Generating ID based on item index
-        val link =
+        var link =
             itemElement.getElementsByClass("content_main_item_title").firstOrNull()?.getElementsByTag("a")?.attr("href")
                 ?: ""
+
+        // Add prefix to link if it starts with "/"
+        if (link.startsWith("/")) {
+            link = "https://tengrinews.kz$link"
+        }
+
         newsItems.add(NewsItem(id, imageUrl, title, announce, date, link))
     }
 
